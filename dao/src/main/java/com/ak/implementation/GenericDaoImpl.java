@@ -1,23 +1,15 @@
 package com.ak.implementation;
 
-import java.io.File;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
 
-import javax.transaction.Transactional;
-
-import com.ak.util.DirectoryControl;
-import com.ak.util.GenerateId;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ak.entities.BaseEntity;
 import com.ak.interfaces.GenericDao;
 
 public abstract class GenericDaoImpl<T extends BaseEntity> implements GenericDao<T> {
+
+    private final List<T> collection = new ArrayList<>();
+    private Long index = 0L;
 
     private final Class<T> clazz;
 
@@ -29,76 +21,31 @@ public abstract class GenericDaoImpl<T extends BaseEntity> implements GenericDao
         return this.clazz;
     }
 
-    @Transactional
+    @Override
     public T add(T entity) {
-        Long id = GenerateId.getId(getDirectoryPath());
-        entity.setId(id);
-        writeOrRewriteInRepository(entity);
+        index = index++;
+        entity.setId(index);
+        collection.add(Math.toIntExact(index), entity);
         return entity;
     }
 
-    @Transactional
+    @Override
     public T get(Long id) {
-        T entity = null;
-        try {
-            File file = getFile(id);
-            ObjectMapper mapper = new ObjectMapper();
-            entity = mapper.readValue(file, clazz);
-        } catch (NullPointerException | IOException e) {
-            System.out.println(Arrays.toString(e.getStackTrace()));
-        }
-        return entity;
+        return collection.get(Math.toIntExact(id));
     }
 
-    @Transactional
-    public List<T> getAll() {
-        ObjectMapper mapper = new ObjectMapper();
-        List<T> listEntities = new ArrayList<>();
-        try {
-            listEntities = Files.walk(Paths.get(getDirectoryPath()))
-                    .filter(p -> !p.getFileName().equals(Paths.get("autoincrement")))
-                    .filter(Files::isRegularFile)
-                    .map(p -> {
-                        T entity = null;
-                        try {
-                            entity = mapper.readValue(p.toFile(), clazz);
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                        return entity;
-                    }).collect(Collectors.toList());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return listEntities;
-    }
-
-    @Transactional
-    public void remove(Long id) {
-        File file = getFile(id);
-        file.delete();
-    }
-
-    @Transactional
+    @Override
     public void update(T entity) {
-        writeOrRewriteInRepository(entity);
+        collection.add(Math.toIntExact(entity.getId()), entity);
     }
 
-    private String getDirectoryPath() {
-        return DirectoryControl.getPath(clazz.getSimpleName());
+    @Override
+    public void remove(Long id) {
+        collection.remove(Math.toIntExact(id));
     }
 
-    private File getFile(Long id) {
-        return new File(getDirectoryPath() + id.toString() + ".json");
-    }
-
-    private void writeOrRewriteInRepository(T entity) {
-        File file = getFile(entity.getId());
-        ObjectMapper mapper = new ObjectMapper();
-        try {
-            mapper.writeValue(file, entity);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    @Override
+    public List<T> getAll() {
+        return collection;
     }
 }
