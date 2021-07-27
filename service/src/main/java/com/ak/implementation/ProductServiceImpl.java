@@ -41,7 +41,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     public void update(ProductDto productDto) {
-        if (productDto.getId() != null) {
+        if (productDto.getId() == null) {
             return;
         }
         Product product = getEntityById(productDto.getId());

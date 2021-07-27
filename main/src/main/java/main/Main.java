@@ -1,15 +1,5 @@
 package main;
 
-import dto.ClientDto;
-import dto.ProductDto;
-import dto.StorageDto;
-import dto.StoreDto;
-import implementation.*;
-import interfaces.*;
-
-import java.util.ArrayList;
-import java.util.Collection;
-
 public class Main {
 //    public static void main(String[] args) {
 //        //Create some objects

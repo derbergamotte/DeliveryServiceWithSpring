@@ -1,17 +1,5 @@
 package main;
 
-import implementation.CategoryServiceImpl;
-import implementation.ClientServiceImpl;
-import implementation.ProductServiceImpl;
-import implementation.StoreServiceImpl;
-import interfaces.CategoryService;
-import interfaces.ClientService;
-import interfaces.ProductService;
-import interfaces.StoreService;
-
-import java.util.ArrayList;
-import java.util.Collection;
-
 public class UtilClassForCreateSomeObjects {
     public static void create() {
 //        CategoryService categoryService = CategoryServiceImpl.getCategoryService();

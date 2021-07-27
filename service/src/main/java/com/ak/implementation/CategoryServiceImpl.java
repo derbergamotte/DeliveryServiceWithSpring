@@ -35,7 +35,7 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     public void update(CategoryDto categoryDto) {
-        if (categoryDto.getId() != null) {
+        if (categoryDto.getId() == null) {
             return;
         }
         Category category = getEntityById(categoryDto.getId());

@@ -38,7 +38,7 @@ public class StorageServiceImpl implements StorageService {
 
     public void update(StorageDto storageDto) {
         Storage storage = getEntityById(storageDto.getId());
-        if (storageDto.getId() != null) {
+        if (storageDto.getId() == null) {
             return;
         }
         if (!(storageDto.getQuantity() == null)) {

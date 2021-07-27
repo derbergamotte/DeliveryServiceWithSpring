@@ -35,7 +35,7 @@ public class StoreServiceImpl implements StoreService {
 
     public void update(StoreDto storeDto) {
 
-        if (storeDto.getId() != null) {
+        if (storeDto.getId() == null) {
             return;
         }
         Store store = getEntityById(storeDto.getId());

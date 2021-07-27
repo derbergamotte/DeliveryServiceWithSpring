@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Category</title>
+    <link href="../css/styles.css" rel="stylesheet" />
+    <link href="../css/modal.css" rel="stylesheet"/>
+</head>
+<body>
+<div th:object="${category}" class="form">
+    <h1 th:text="*{name}">category</h1>
+    <form th:method="delete" action="" th:action="@{{path}(path = ${category.id})}">
+        <input type="submit" value="Delete" class="button button-success">
+    </form>
+</div>
+<div id="update" class="modalDialog">
+    <div>
+        <a href="javascript:history.back()" title="Close" class="close">X</a>
+        <h2>Please input new category name</h2>
+        <form action="" th:action="@{{path}(path = ${category.id})}" th:method="patch">
+            <input id="categoryname" type="text" placeholder="Name" required th:field="*{category.name}" class="field">
+            <input type="submit" value="Submit" class="button button-success">
+        </form>
+    </div>
+</div>
+<div id="result" class="modalDialog">
+    <div>
+        <a href="javascript:history.back()" title="Close" class="close">X</a>
+        <h2>Category is success updated</h2>
+    </div>
+</div>
+<div id="error" class="modalDialog">
+    <div>
+        <a href="javascript:history.back()" title="Close" class="close">X</a>
+        <h2>Something went wrong</h2>
+    </div>
+</div>
+</body>
+</html>

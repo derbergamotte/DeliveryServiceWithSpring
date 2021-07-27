@@ -35,7 +35,7 @@ public class ClientServiceImpl implements ClientService {
     }
 
     public void update(ClientDto clientDto) {
-        if (clientDto.getId() != null) {
+        if (clientDto.getId() == null) {
             return;
         }
         Client client = getEntityById(clientDto.getId());
