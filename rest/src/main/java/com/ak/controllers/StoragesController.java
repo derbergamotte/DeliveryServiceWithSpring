@@ -3,10 +3,12 @@ package com.ak.controllers;
 import com.ak.dto.StorageDto;
 import com.ak.interfaces.StorageService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.view.RedirectView;
+
+import java.util.Collection;
 
 @Controller
 @RequestMapping("/storages")
@@ -16,46 +18,40 @@ public class StoragesController {
     StorageService storageService;
 
     @GetMapping
-    public ModelAndView getAll(){
-        ModelAndView modelAndView = new ModelAndView("storages");
-        modelAndView.addObject("storages", storageService.getAll());
-        return modelAndView;
+    public ResponseEntity<Collection<StorageDto>> getAll() {
+        return ResponseEntity.status(HttpStatus.OK).body(storageService.getAll());
     }
 
     @GetMapping("/{id}")
-    public ModelAndView get(@PathVariable Long id){
-        ModelAndView modelAndView = new ModelAndView("storage");
-        modelAndView.addObject("storage", storageService.getById(id));
-        return modelAndView;
+    public ResponseEntity<StorageDto> get(@PathVariable Long id) {
+        return ResponseEntity.status(HttpStatus.OK).body(storageService.getById(id));
     }
 
     @PostMapping
-    public ModelAndView addSubmit(StorageDto storageDto) {
-        ModelAndView modelAndView = new ModelAndView();
+    public ResponseEntity<StorageDto> addSubmit(StorageDto storageDto) {
         try {
-            storageService.add(storageDto);
-            modelAndView.setView(new RedirectView("storages#result"));
+            return ResponseEntity.status(HttpStatus.OK).body(storageService.add(storageDto));
         } catch (Exception e) {
-            modelAndView.setView(new RedirectView("storages#error"));
+            return ResponseEntity.status(HttpStatus.I_AM_A_TEAPOT).body(storageDto);
         }
-        return modelAndView;
     }
 
-    @PatchMapping("/{id}")
-    public ModelAndView updateSubmit(StorageDto storageDto){
-        ModelAndView modelAndView = new ModelAndView();
+    @PutMapping("/{id}")
+    public ResponseEntity<StorageDto> updateSubmit(StorageDto storageDto) {
         try {
-            storageService.update(storageDto);
-            modelAndView.setView(new RedirectView("{id}#result"));
+            return ResponseEntity.status(HttpStatus.OK).body(storageService.update(storageDto));
         } catch (Exception e) {
-            modelAndView.setView(new RedirectView("{id}#error"));
+            return ResponseEntity.status(HttpStatus.I_AM_A_TEAPOT).body(storageDto);
         }
-        return modelAndView;
     }
 
     @DeleteMapping("/{id}")
-    public ModelAndView delete(@PathVariable Long id) {
-        storageService.remove(id);
-        return new ModelAndView(new RedirectView(""));
+    public ResponseEntity<String> delete(@PathVariable Long id) {
+        try {
+            storageService.remove(id);
+            return ResponseEntity.status(HttpStatus.OK).body("It was deleted");
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.I_AM_A_TEAPOT).body("It wasn't deleted");
+        }
     }
 }

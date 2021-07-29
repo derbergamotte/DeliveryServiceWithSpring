@@ -2,11 +2,6 @@ package com.ak.interfaces;
 
 import com.ak.dto.AttributeDto;
 
-public interface AttributeService {
+public interface AttributeService extends EntityService<AttributeDto>{
 
-    AttributeDto add(AttributeDto attributeDto);
-
-    AttributeDto getById(Long id);
-
-    AttributeDto getElseAdd(AttributeDto attributeDto);
 }

@@ -3,10 +3,12 @@ package com.ak.controllers;
 import com.ak.dto.ProductDto;
 import com.ak.interfaces.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.view.RedirectView;
+
+import java.util.Collection;
 
 @Controller
 @RequestMapping("/products")
@@ -16,47 +18,41 @@ public class ProductsController {
     ProductService productService;
 
     @GetMapping
-    public ModelAndView getAll() {
-        ModelAndView modelAndView = new ModelAndView("products");
-        modelAndView.addObject("products", productService.getAll());
-        return modelAndView;
+    public ResponseEntity<Collection<ProductDto>> getAll() {
+        return ResponseEntity.status(HttpStatus.OK).body(productService.getAll());
     }
 
     @GetMapping("/{id}")
-    public ModelAndView get(@PathVariable Long id) {
-        ModelAndView modelAndView = new ModelAndView("product");
-        modelAndView.addObject("product", productService.getById(id));
-        return modelAndView;
+    public ResponseEntity<ProductDto> get(@PathVariable Long id) {
+        return ResponseEntity.status(HttpStatus.OK).body(productService.getById(id));
     }
 
     @PostMapping
-    public ModelAndView addSubmit(ProductDto productDto) {
-        ModelAndView modelAndView = new ModelAndView();
+    public ResponseEntity<ProductDto> addSubmit(ProductDto productDto) {
         try {
-            productService.add(productDto);
-            modelAndView.setView(new RedirectView("products#result"));
+            return ResponseEntity.status(HttpStatus.OK).body(productService.add(productDto));
         } catch (Exception e) {
-            modelAndView.setView(new RedirectView("products#error"));
+            return ResponseEntity.status(HttpStatus.I_AM_A_TEAPOT).body(productDto);
         }
-        return modelAndView;
     }
 
-    @PatchMapping("/{id}")
-    public ModelAndView updateSubmit(ProductDto productDto) {
-        ModelAndView modelAndView = new ModelAndView();
+    @PutMapping("/{id}")
+    public ResponseEntity<ProductDto> updateSubmit(ProductDto productDto) {
         try {
-            productService.update(productDto);
-            modelAndView.setView(new RedirectView("{id}#result"));
+            return ResponseEntity.status(HttpStatus.OK).body(productService.update(productDto));
         } catch (Exception e) {
-            modelAndView.setView(new RedirectView("{id}#error"));
+            return ResponseEntity.status(HttpStatus.I_AM_A_TEAPOT).body(productDto);
         }
-        return modelAndView;
     }
 
 
     @DeleteMapping("/{id}")
-    public ModelAndView delete(@PathVariable Long id) {
-        productService.remove(id);
-        return new ModelAndView(new RedirectView(""));
+    public ResponseEntity<String> delete(@PathVariable Long id) {
+        try {
+            productService.remove(id);
+            return ResponseEntity.status(HttpStatus.OK).body("It was deleted");
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.I_AM_A_TEAPOT).body("It wasn't deleted");
+        }
     }
 }

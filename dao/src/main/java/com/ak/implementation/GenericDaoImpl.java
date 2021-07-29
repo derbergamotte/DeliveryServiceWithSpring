@@ -35,8 +35,9 @@ public abstract class GenericDaoImpl<T extends BaseEntity> implements GenericDao
     }
 
     @Override
-    public void update(T entity) {
+    public T update(T entity) {
         collection.add(Math.toIntExact(entity.getId()), entity);
+        return entity;
     }
 
     @Override

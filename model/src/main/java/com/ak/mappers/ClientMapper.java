@@ -9,14 +9,6 @@ import org.mapstruct.factory.Mappers;
 import java.util.Collection;
 
 @Mapper
-public interface ClientMapper {
+public interface ClientMapper extends EntityMapper<Client, ClientDto>{
 
-    ClientMapper INSTANCE = Mappers.getMapper(ClientMapper.class);
-
-    @Mapping(source = "id", target = "id")
-    ClientDto toDto(Client entity);
-    @Mapping(source = "id", target = "id")
-    Collection<ClientDto> toDto(Collection<Client> clients);
-    @Mapping(source = "id", target = "id")
-    Client toEntity(ClientDto dto);
 }

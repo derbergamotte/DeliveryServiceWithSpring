@@ -4,10 +4,14 @@ import com.ak.dto.CategoryDto;
 import com.ak.dto.StoreDto;
 import com.ak.interfaces.StoreService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
+
+import java.util.Collection;
 
 @Controller
 @RequestMapping("/stores")
@@ -17,46 +21,40 @@ public class StoresController {
     StoreService storeService;
 
     @GetMapping
-    public ModelAndView getAll(){
-        ModelAndView modelAndView = new ModelAndView("stores");
-        modelAndView.addObject("stores", storeService.getAll());
-        return modelAndView;
+    public ResponseEntity<Collection<StoreDto>> getAll(){
+        return ResponseEntity.status(HttpStatus.OK).body(storeService.getAll());
     }
 
     @GetMapping("/{id}")
-    public ModelAndView get(@PathVariable Long id){
-        ModelAndView modelAndView = new ModelAndView("store");
-        modelAndView.addObject("store", storeService.getById(id));
-        return modelAndView;
+    public ResponseEntity<StoreDto> get(@PathVariable Long id){
+        return ResponseEntity.status(HttpStatus.OK).body(storeService.getById(id));
     }
 
     @PostMapping
-    public ModelAndView addSubmit(StoreDto storeDto) {
-        ModelAndView modelAndView = new ModelAndView();
+    public ResponseEntity<StoreDto> addSubmit(StoreDto storeDto) {
         try {
-            storeService.add(storeDto);
-            modelAndView.setView(new RedirectView("stores#result"));
+            return ResponseEntity.status(HttpStatus.OK).body(storeService.add(storeDto));
         } catch (Exception e) {
-            modelAndView.setView(new RedirectView("stores#error"));
+            return ResponseEntity.status(HttpStatus.I_AM_A_TEAPOT).body(storeDto);
         }
-        return modelAndView;
     }
 
-    @PatchMapping("/{id}")
-    public ModelAndView updateSubmit(StoreDto storeDto){
-        ModelAndView modelAndView = new ModelAndView();
+    @PutMapping("/{id}")
+    public ResponseEntity<StoreDto> updateSubmit(StoreDto storeDto){
         try {
-            storeService.update(storeDto);
-            modelAndView.setView(new RedirectView("{id}#result"));
+            return ResponseEntity.status(HttpStatus.OK).body(storeService.update(storeDto));
         } catch (Exception e) {
-            modelAndView.setView(new RedirectView("{id}#error"));
+            return ResponseEntity.status(HttpStatus.I_AM_A_TEAPOT).body(storeDto);
         }
-        return modelAndView;
     }
 
     @DeleteMapping("/{id}")
-    public ModelAndView delete(@PathVariable Long id) {
-        storeService.remove(id);
-        return new ModelAndView(new RedirectView(""));
+    public ResponseEntity<String> delete(@PathVariable Long id) {
+        try {
+            storeService.remove(id);
+            return ResponseEntity.status(HttpStatus.OK).body("It was deleted");
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.I_AM_A_TEAPOT).body("It wasn't deleted");
+        }
     }
 }

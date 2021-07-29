@@ -3,10 +3,12 @@ package com.ak.controllers;
 import com.ak.dto.OrderDto;
 import com.ak.interfaces.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.view.RedirectView;
+
+import java.util.Collection;
 
 @Controller
 @RequestMapping("/orders")
@@ -15,22 +17,32 @@ public class OrdersController {
     @Autowired
     OrderService orderService;
 
+    @GetMapping
+    public ResponseEntity<Collection<OrderDto>> getAll() {
+        return ResponseEntity.status(HttpStatus.OK).body(orderService.getAll());
+    }
+
     @GetMapping("/{id}")
-    public ModelAndView get(@PathVariable Long id){
-        ModelAndView modelAndView = new ModelAndView("order");
-        modelAndView.addObject("order", orderService.getById(id));
-        return modelAndView;
+    public ResponseEntity<OrderDto> get(@PathVariable Long id){
+        return ResponseEntity.status(HttpStatus.OK).body(orderService.getById(id));
     }
 
     @PostMapping
-    public ModelAndView addSubmit(OrderDto orderDto) {
-        ModelAndView modelAndView = new ModelAndView();
+    public ResponseEntity<OrderDto> addSubmit(@RequestBody OrderDto orderDto) {
         try {
-            orderService.add(orderDto);
-            modelAndView.setView(new RedirectView("orders#result"));
+            return ResponseEntity.status(HttpStatus.OK).body(orderService.add(orderDto));
         } catch (Exception e) {
-            modelAndView.setView(new RedirectView("orders#error"));
+            return ResponseEntity.status(HttpStatus.I_AM_A_TEAPOT).body(orderDto);
         }
-        return modelAndView;
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String> delete(@PathVariable Long id) {
+        try {
+            orderService.remove(id);
+            return ResponseEntity.status(HttpStatus.OK).body("It was deleted");
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.I_AM_A_TEAPOT).body("It wasn't deleted");
+        }
     }
 }

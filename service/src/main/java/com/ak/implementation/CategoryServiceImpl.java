@@ -1,8 +1,5 @@
 package com.ak.implementation;
 
-import java.util.Collection;
-import java.util.stream.Collectors;
-
 import com.ak.dto.CategoryDto;
 import com.ak.entities.Category;
 import com.ak.interfaces.CategoryService;
@@ -13,39 +10,21 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class CategoryServiceImpl implements CategoryService {
+public class CategoryServiceImpl extends EntityServiceImpl<Category, CategoryDto> implements CategoryService {
 
     @Autowired
     private CategoryDao categoryDao;
+    @Autowired
+    private CategoryMapper categoryMapper;
 
-    public CategoryDto add(CategoryDto categoryDto) {
-        return CategoryMapper.INSTANCE.toDto(categoryDao.add(CategoryMapper.INSTANCE.toEntity(categoryDto)));
-    }
-
-    public CategoryDto getById(Long id) {
-        return CategoryMapper.INSTANCE.toDto(getEntityById(id));
-    }
-
-    public Collection<CategoryDto> getAll() {
-        return categoryDao.getAll().stream().map(CategoryMapper.INSTANCE::toDto).collect(Collectors.toSet());
-    }
-
-    public void remove(Long categoryId) {
-        categoryDao.remove(categoryId);
-    }
-
-    public void update(CategoryDto categoryDto) {
+    public CategoryDto update(CategoryDto categoryDto) {
         if (categoryDto.getId() == null) {
-            return;
+            return categoryDto;
         }
         Category category = getEntityById(categoryDto.getId());
         if (StringUtils.isNotEmpty(categoryDto.getName())) {
             category.setName(categoryDto.getName());
         }
-        categoryDao.update(category);
-    }
-
-    private Category getEntityById(Long id) {
-        return categoryDao.get(id);
+        return categoryMapper.toDto(categoryDao.update(category));
     }
 }

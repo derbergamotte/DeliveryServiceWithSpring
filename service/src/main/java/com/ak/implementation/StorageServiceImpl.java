@@ -13,33 +13,19 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
-public class StorageServiceImpl implements StorageService {
+public class StorageServiceImpl extends EntityServiceImpl<Storage, StorageDto> implements StorageService {
 
     @Autowired
     private StorageDao storageDao;
     @Autowired
     private ProductService productService;
+    @Autowired
+    private StorageMapper storageMapper;
 
-    public StorageDto add(StorageDto storageDto) {
-        return StorageMapper.INSTANCE.toDto(storageDao.add(StorageMapper.INSTANCE.toEntity(storageDto)));
-    }
-
-    public StorageDto getById(Long id) {
-        return StorageMapper.INSTANCE.toDto(getEntityById(id));
-    }
-
-    public Collection<StorageDto> getAll() {
-        return StorageMapper.INSTANCE.toDto(storageDao.getAll());
-    }
-
-    public void remove(Long id) {
-        storageDao.remove(id);
-    }
-
-    public void update(StorageDto storageDto) {
+    public StorageDto update(StorageDto storageDto) {
         Storage storage = getEntityById(storageDto.getId());
         if (storageDto.getId() == null) {
-            return;
+            return storageDto;
         }
         if (!(storageDto.getQuantity() == null)) {
             storage.setQuantity(storageDto.getQuantity());
@@ -47,7 +33,7 @@ public class StorageServiceImpl implements StorageService {
         if (!(storageDto.getPrice() == null)) {
             storage.setPrice(storageDto.getPrice());
         }
-        storageDao.update(storage);
+        return storageMapper.toDto(storageDao.update(storage));
     }
 
     public Collection<StorageDto> sortProductByPriceInStores(Long productId) {
@@ -55,9 +41,5 @@ public class StorageServiceImpl implements StorageService {
                 .stream()
                 .sorted(Comparator.comparing(StorageDto::getPrice))
                 .collect(Collectors.toList());
-    }
-
-    private Storage getEntityById(Long id) {
-        return storageDao.get(id);
     }
 }

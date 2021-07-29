@@ -1,7 +1,5 @@
 package com.ak.implementation;
 
-import java.util.Collection;
-
 import com.ak.dto.StoreDto;
 import com.ak.entities.Store;
 import com.ak.interfaces.StoreService;
@@ -12,31 +10,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class StoreServiceImpl implements StoreService {
+public class StoreServiceImpl extends EntityServiceImpl<Store, StoreDto> implements StoreService {
 
     @Autowired
     private StoreDao storeDao;
+    @Autowired
+    private StoreMapper storeMapper;
 
-    public StoreDto add(StoreDto storeDto) {
-        return StoreMapper.INSTANCE.toDto(storeDao.add(StoreMapper.INSTANCE.toEntity(storeDto)));
-    }
-
-    public StoreDto getById(Long id) {
-        return StoreMapper.INSTANCE.toDto(getEntityById(id));
-    }
-
-    public Collection<StoreDto> getAll() {
-        return StoreMapper.INSTANCE.toDto(storeDao.getAll());
-    }
-
-    public void remove(Long orderId) {
-        storeDao.remove(orderId);
-    }
-
-    public void update(StoreDto storeDto) {
-
+    public StoreDto update(StoreDto storeDto) {
         if (storeDto.getId() == null) {
-            return;
+            return storeDto;
         }
         Store store = getEntityById(storeDto.getId());
         if (StringUtils.isNotEmpty(storeDto.getName())) {
@@ -48,10 +31,6 @@ public class StoreServiceImpl implements StoreService {
         if (StringUtils.isNotEmpty(storeDto.getPhone())) {
             store.setPhone(storeDto.getPhone());
         }
-        storeDao.update(store);
-    }
-
-    private Store getEntityById(Long id) {
-        return storeDao.get(id);
+       return storeMapper.toDto(storeDao.update(store));
     }
 }

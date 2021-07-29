@@ -12,10 +12,9 @@ public interface GenericDao<T extends BaseEntity> {
 	
 	T get(Long id);
 	
-	void update (T entity);
+	T update (T entity);
 	
 	void remove (Long id);
 	
 	List<T> getAll();
-
 }

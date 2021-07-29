@@ -12,7 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class ProductServiceImpl implements ProductService {
+public class ProductServiceImpl extends EntityServiceImpl<Product, ProductDto> implements ProductService {
 
     @Autowired
     private ProductDao productDao;
@@ -21,28 +21,11 @@ public class ProductServiceImpl implements ProductService {
     @Autowired
     private CategoryDao categoryDao;
     @Autowired
-    private AttributeService attributeService;
+    private ProductMapper productMapper;
 
-    public ProductDto add(ProductDto productDto) {
-        productDto.setAttributes(productDto.getAttributes().stream().map(attributeService::getElseAdd).collect(Collectors.toSet()));
-        return ProductMapper.INSTANCE.toDto(productDao.add(ProductMapper.INSTANCE.toEntity(productDto)));
-    }
-
-    public ProductDto getById(Long id) {
-        return ProductMapper.INSTANCE.toDto(getEntityById(id));
-    }
-
-    public Collection<ProductDto> getAll() {
-        return ProductMapper.INSTANCE.toDto(productDao.getAll());
-    }
-
-    public void remove(Long orderId) {
-        productDao.remove(orderId);
-    }
-
-    public void update(ProductDto productDto) {
+    public ProductDto update(ProductDto productDto) {
         if (productDto.getId() == null) {
-            return;
+            return productDto;
         }
         Product product = getEntityById(productDto.getId());
         if (StringUtils.isNotEmpty(productDto.getName())) {
@@ -51,21 +34,17 @@ public class ProductServiceImpl implements ProductService {
         if (StringUtils.isNotEmpty(productDto.getInformation())) {
             product.setInformation(productDto.getInformation());
         }
-        productDao.update(product);
+        return productMapper.toDto(productDao.update(product));
     }
 
     public Collection<ProductDto> getByCategoryById(Long categoryId) {
-        return ProductMapper.INSTANCE.toDto(productDao.findByCategory(categoryDao.get(categoryId)));
+        return productMapper.toDto(productDao.findByCategory(categoryDao.get(categoryId)));
     }
 
     public Collection<ProductDto> findByAttributes(Collection<Long> listAttributesId) {
-        return ProductMapper.INSTANCE.toDto(productDao.findByAttributes(
+        return productMapper.toDto(productDao.findByAttributes(
                 listAttributesId.stream()
                         .map(attributeDao::get)
                         .collect(Collectors.toSet())));
-    }
-
-    private Product getEntityById(Long id) {
-        return productDao.get(id);
     }
 }
