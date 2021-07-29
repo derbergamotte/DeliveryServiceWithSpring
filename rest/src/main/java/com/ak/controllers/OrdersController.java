@@ -5,12 +5,11 @@ import com.ak.interfaces.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Collection;
 
-@Controller
+@RestController
 @RequestMapping("/orders")
 public class OrdersController {
 
@@ -19,20 +18,32 @@ public class OrdersController {
 
     @GetMapping
     public ResponseEntity<Collection<OrderDto>> getAll() {
-        return ResponseEntity.status(HttpStatus.OK).body(orderService.getAll());
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .header("Content-Type", "application/json")
+                .body(orderService.getAll());
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<OrderDto> get(@PathVariable Long id){
-        return ResponseEntity.status(HttpStatus.OK).body(orderService.getById(id));
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .header("Content-Type", "application/json")
+                .body(orderService.getById(id));
     }
 
     @PostMapping
-    public ResponseEntity<OrderDto> addSubmit(@RequestBody OrderDto orderDto) {
+    public ResponseEntity<OrderDto> add(@RequestBody OrderDto orderDto) {
         try {
-            return ResponseEntity.status(HttpStatus.OK).body(orderService.add(orderDto));
+            return ResponseEntity
+                    .status(HttpStatus.CREATED)
+                    .header("Content-Type", "application/json")
+                    .body(orderService.add(orderDto));
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.I_AM_A_TEAPOT).body(orderDto);
+            return ResponseEntity
+                    .status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .header("Content-Type", "application/json")
+                    .body(orderDto);
         }
     }
 
@@ -42,7 +53,7 @@ public class OrdersController {
             orderService.remove(id);
             return ResponseEntity.status(HttpStatus.OK).body("It was deleted");
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.I_AM_A_TEAPOT).body("It wasn't deleted");
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("It wasn't deleted");
         }
     }
 }
