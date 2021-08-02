@@ -1,0 +1,78 @@
+databaseChangeLog:
+  -  changeSet:
+       id: 1
+       author: ak
+       changes:
+         -  createTable:
+              tableName: product
+              columns:
+                -  column:
+                     name: id
+                     type: BIGINT
+                     autoIncrement: true
+                     constraints:
+                       primaryKey: true
+                       nullable: false
+                       unique: true
+                -  column:
+                     name: name
+                     type: VARCHAR(255)
+                - column:
+                    name: information
+                    type: VARCHAR(255)
+  - changeSet:
+      id: 2
+      author: ak
+      changes:
+        - createTable:
+            tableName: product_attribute
+            columns:
+              - column:
+                  name: product_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+                    foreignKeyName: FK_product_attribute
+                    references: product(id)
+              - column:
+                  name: attribute_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+                    foreignKeyName: FK_attribute_product
+                    references: attribute(id)
+  - changeSet:
+      id: 3
+      author: ak
+      changes:
+        - addPrimaryKey:
+            columnNames: product_id, attribute_id
+            tableName: product_attribute
+  - changeSet:
+      id: 4
+      author: ak
+      changes:
+        - createTable:
+            tableName: product_category
+            columns:
+              - column:
+                  name: product_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+                    foreignKeyName: FK_product_category
+                    references: product(id)
+              - column:
+                  name: category_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+                    foreignKeyName: FK_category_product
+                    references: category(id)
+  - changeSet:
+      id: 5
+      author: ak
+      changes:
+        - addPrimaryKey:
+            columnNames: product_id, category_id
+            tableName: product_category

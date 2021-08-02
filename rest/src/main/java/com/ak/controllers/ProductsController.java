@@ -33,7 +33,7 @@ public class ProductsController {
     }
 
     @PostMapping
-    public ResponseEntity<ProductDto> add(ProductDto productDto) {
+    public ResponseEntity<ProductDto> add(@RequestBody ProductDto productDto) {
         try {
             return ResponseEntity
                     .status(HttpStatus.CREATED)
@@ -47,7 +47,7 @@ public class ProductsController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<ProductDto> update(ProductDto productDto) {
+    public ResponseEntity<ProductDto> update(@RequestBody ProductDto productDto) {
         try {
             return ResponseEntity
                     .status(HttpStatus.CREATED)

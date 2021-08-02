@@ -1,0 +1,40 @@
+databaseChangeLog:
+  -  changeSet:
+       id: 1
+       author: ak
+       changes:
+         -  createTable:
+              tableName: storage
+              columns:
+                -  column:
+                     name: id
+                     type: BIGINT
+                     autoIncrement: true
+                     constraints:
+                       primaryKey: true
+                       nullable: false
+                       unique: true
+                -  column:
+                     name: quantity
+                     type: INT
+                     constraints:
+                       nullable: false
+                       unique: true
+                - column:
+                    name: price
+                    type: INT
+                    constraints:
+                      nullable: false
+                      unique: true
+                - column:
+                    name: store_id
+                    type: BIGINT
+                    constraints:
+                      foreignKeyName: FK_store_storage
+                      references: store(id)
+                - column:
+                    name: product_id
+                    type: BIGINT
+                    constraints:
+                      foreignKeyName: FK_product_storage
+                      references: product(id)

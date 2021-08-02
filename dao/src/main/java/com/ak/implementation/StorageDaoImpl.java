@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class StorageDaoImpl extends GenericDaoImpl<Storage> implements StorageDao {
 
-    private StorageDaoImpl() {
+    StorageDaoImpl() {
         super(Storage.class);
     }
 }

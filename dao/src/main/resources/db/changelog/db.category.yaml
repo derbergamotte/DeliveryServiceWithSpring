@@ -1,0 +1,22 @@
+databaseChangeLog:
+  -  changeSet:
+       id: 1
+       author: ak
+       changes:
+         -  createTable:
+              tableName: category
+              columns:
+                -  column:
+                     name: id
+                     type: BIGINT
+                     autoIncrement: true
+                     constraints:
+                       primaryKey: true
+                       nullable: false
+                       unique: true
+                -  column:
+                     name: name
+                     type: VARCHAR(255)
+                     constraints:
+                       nullable: false
+                       unique: true

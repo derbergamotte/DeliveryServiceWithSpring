@@ -1,0 +1,34 @@
+databaseChangeLog:
+  -  changeSet:
+       id: 1
+       author: ak
+       changes:
+         -  createTable:
+              tableName: order
+              columns:
+                -  column:
+                     name: id
+                     type: BIGINT
+                     autoIncrement: true
+                     constraints:
+                       primaryKey: true
+                       nullable: false
+                       unique: true
+                -  column:
+                     name: quantity
+                     type: INT
+                     constraints:
+                       nullable: false
+                       unique: true
+                - column:
+                    name: storage_id
+                    type: BIGINT
+                    constraints:
+                      foreignKeyName: FK_storage_order
+                      references: storage(id)
+                - column:
+                    name: client_id
+                    type: BIGINT
+                    constraints:
+                      foreignKeyName: FK_client_order
+                      references: client(id)

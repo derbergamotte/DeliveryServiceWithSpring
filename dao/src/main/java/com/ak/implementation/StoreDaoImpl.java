@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class StoreDaoImpl extends GenericDaoImpl<Store> implements StoreDao {
 
-    private StoreDaoImpl() {
+    StoreDaoImpl() {
         super(Store.class);
     }
 }

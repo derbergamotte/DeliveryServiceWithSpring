@@ -34,7 +34,7 @@ public class StoresController {
     }
 
     @PostMapping
-    public ResponseEntity<StoreDto> add(StoreDto storeDto) {
+    public ResponseEntity<StoreDto> add(@RequestBody StoreDto storeDto) {
         try {
             return ResponseEntity
                     .status(HttpStatus.CREATED)
@@ -49,7 +49,7 @@ public class StoresController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<StoreDto> update(StoreDto storeDto){
+    public ResponseEntity<StoreDto> update(@RequestBody StoreDto storeDto){
         try {
             return ResponseEntity
                     .status(HttpStatus.CREATED)

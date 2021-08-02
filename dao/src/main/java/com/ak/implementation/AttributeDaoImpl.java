@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class AttributeDaoImpl extends GenericDaoImpl<Attribute> implements AttributeDao {
 
-    private AttributeDaoImpl() {
+    AttributeDaoImpl() {
         super(Attribute.class);
     }
 

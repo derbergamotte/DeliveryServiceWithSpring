@@ -1,0 +1,15 @@
+databaseChangeLog:
+  - include:
+      file: db/changelog/db.attribute.yaml
+  - include:
+      file: db/changelog/db.category.yaml
+  - include:
+      file: db/changelog/db.product.yaml
+  - include:
+      file: db/changelog/db.store.yaml
+  - include:
+      file: db/changelog/db.storage.yaml
+  - include:
+      file: db/changelog/db.client.yaml
+  - include:
+      file: db/changelog/db.order.yaml

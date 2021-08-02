@@ -30,7 +30,7 @@ public abstract class EntityServiceImpl<E extends BaseEntity, T extends BaseDto>
     }
 
     public void remove(Long id) {
-        genericDao.remove(id);
+        genericDao.remove(getEntityById(id));
     }
 
     protected E getEntityById(Long id) {

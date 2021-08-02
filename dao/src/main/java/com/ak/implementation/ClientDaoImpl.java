@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class ClientDaoImpl extends GenericDaoImpl<Client> implements ClientDao {
 
-	private ClientDaoImpl() {
+	ClientDaoImpl() {
 		super(Client.class);
 	}
 }

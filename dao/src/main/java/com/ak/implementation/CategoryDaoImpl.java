@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class CategoryDaoImpl extends GenericDaoImpl<Category> implements CategoryDao {
 
-	private CategoryDaoImpl() {
+	CategoryDaoImpl() {
 		super(Category.class);
 	}
 }

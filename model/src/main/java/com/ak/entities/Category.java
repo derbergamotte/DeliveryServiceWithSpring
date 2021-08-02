@@ -2,17 +2,19 @@ package com.ak.entities;
 
 import java.util.Collection;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
+
+import javax.persistence.*;
 
 @Data
 @EqualsAndHashCode(callSuper = true)
-@NoArgsConstructor
-@AllArgsConstructor
+@Entity
+@Table(name = "category")
 public class Category extends BaseEntity {
 
+    @Column(name = "name")
     private String name;
+    @ManyToMany(mappedBy = "categories", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Collection<Product> products;
 }

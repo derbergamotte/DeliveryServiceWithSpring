@@ -14,7 +14,7 @@ public interface GenericDao<T extends BaseEntity> {
 	
 	T update (T entity);
 	
-	void remove (Long id);
+	void remove (T entity);
 	
 	List<T> getAll();
 }
