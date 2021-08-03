@@ -2,13 +2,15 @@ package com.ak.entities;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import org.hibernate.envers.Audited;
 
 import javax.persistence.*;
 
 @Data
 @EqualsAndHashCode(callSuper = true)
 @Entity
-@Table(name = "client")
+@Table(name = "order")
+@Audited
 public class Order extends BaseEntity {
 
     @ManyToOne(fetch = FetchType.LAZY, cascade=CascadeType.ALL)

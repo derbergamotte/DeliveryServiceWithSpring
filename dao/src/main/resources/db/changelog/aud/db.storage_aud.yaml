@@ -1,0 +1,38 @@
+databaseChangeLog:
+  -  changeSet:
+       id: 1
+       author: ak
+       changes:
+         -  createTable:
+              tableName: storage_aud
+              columns:
+                -  column:
+                     name: id
+                     type: BIGINT
+                     autoIncrement: true
+                     constraints:
+                       primaryKey: true
+                       nullable: false
+                - column:
+                    name: rev
+                    type: BIGINT
+                    constraints:
+                      foreignKeyName: FK_storage_aud_revinfo
+                      references: revinfo(rev)
+                      primaryKey: true
+                      nullable: false
+                - column:
+                    name: revtype
+                    type: TINYINT
+                -  column:
+                     name: quantity
+                     type: INT
+                - column:
+                    name: price
+                    type: INT
+                - column:
+                    name: store_id
+                    type: BIGINT
+                - column:
+                    name: product_id
+                    type: BIGINT

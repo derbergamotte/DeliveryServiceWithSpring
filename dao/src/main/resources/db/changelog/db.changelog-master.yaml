@@ -13,3 +13,5 @@ databaseChangeLog:
       file: db/changelog/db.client.yaml
   - include:
       file: db/changelog/db.order.yaml
+  - include:
+      file: db/changelog/aud/db.changelog-aud.yaml

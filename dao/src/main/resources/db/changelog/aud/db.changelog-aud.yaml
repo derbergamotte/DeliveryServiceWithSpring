@@ -1,0 +1,19 @@
+databaseChangeLog:
+  - include:
+      file: db/changelog/aud/db.createsequence.yaml
+  - include:
+      file: db/changelog/aud/db.revinfo.yaml
+  - include:
+      file: db/changelog/aud/db.attribute_aud.yaml
+  - include:
+      file: db/changelog/aud/db.category_aud.yaml
+  - include:
+      file: db/changelog/aud/db.store_aud.yaml
+  - include:
+      file: db/changelog/aud/db.storage_aud.yaml
+  - include:
+      file: db/changelog/aud/db.product_aud.yaml
+  - include:
+      file: db/changelog/aud/db.client_aud.yaml
+  - include:
+      file: db/changelog/aud/db.order_aud.yaml

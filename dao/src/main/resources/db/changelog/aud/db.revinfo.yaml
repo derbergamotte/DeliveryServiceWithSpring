@@ -1,0 +1,18 @@
+databaseChangeLog:
+  -  changeSet:
+       id: 1
+       author: ak
+       changes:
+         -  createTable:
+              tableName: revinfo
+              columns:
+                -  column:
+                     name: rev
+                     type: BIGINT
+                     autoIncrement: true
+                     constraints:
+                       primaryKey: true
+                       nullable: false
+                -  column:
+                     name: revtstmp
+                     type: BIGINT

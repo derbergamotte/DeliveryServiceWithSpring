@@ -1,0 +1,35 @@
+databaseChangeLog:
+  -  changeSet:
+       id: 1
+       author: ak
+       changes:
+         -  createTable:
+              tableName: order_aud
+              columns:
+                -  column:
+                     name: id
+                     type: BIGINT
+                     autoIncrement: true
+                     constraints:
+                       primaryKey: true
+                       nullable: false
+                - column:
+                    name: rev
+                    type: BIGINT
+                    constraints:
+                      foreignKeyName: FK_order_aud_revinfo
+                      references: revinfo(rev)
+                      primaryKey: true
+                      nullable: false
+                - column:
+                    name: revtype
+                    type: TINYINT
+                -  column:
+                     name: quantity
+                     type: INT
+                - column:
+                    name: storage_id
+                    type: BIGINT
+                - column:
+                    name: client_id
+                    type: BIGINT

@@ -1,0 +1,80 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1
+      author: ak
+      changes:
+        - createTable:
+            tableName: product_aud
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: rev
+                  type: BIGINT
+                  constraints:
+                    foreignKeyName: FK_product_aud_revinfo
+                    references: revinfo(rev)
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: revtype
+                  type: TINYINT
+              - column:
+                  name: name
+                  type: VARCHAR(255)
+              - column:
+                  name: information
+                  type: VARCHAR(255)
+  - changeSet:
+      id: 2
+      author: ak
+      changes:
+        - createTable:
+            tableName: product_attribute_aud
+            columns:
+              - column:
+                  name: rev
+                  type: BIGINT
+                  constraints:
+                    foreignKeyName: FK_product_attribute_aud_revinfo
+                    references: revinfo(rev)
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: revtype
+                  type: TINYINT
+              - column:
+                  name: product_id
+                  type: BIGINT
+              - column:
+                  name: attribute_id
+                  type: BIGINT
+  - changeSet:
+      id: 3
+      author: ak
+      changes:
+        - createTable:
+            tableName: product_category_aud
+            columns:
+              - column:
+                  name: rev
+                  type: BIGINT
+                  constraints:
+                    foreignKeyName: FK_product_category_aud_revinfo
+                    references: revinfo(rev)
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: revtype
+                  type: TINYINT
+              - column:
+                  name: product_id
+                  type: BIGINT
+              - column:
+                  name: category_id
+                  type: BIGINT

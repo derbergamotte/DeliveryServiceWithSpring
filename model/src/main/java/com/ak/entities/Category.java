@@ -4,6 +4,7 @@ import java.util.Collection;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import org.hibernate.envers.Audited;
 
 import javax.persistence.*;
 
@@ -11,6 +12,7 @@ import javax.persistence.*;
 @EqualsAndHashCode(callSuper = true)
 @Entity
 @Table(name = "category")
+@Audited
 public class Category extends BaseEntity {
 
     @Column(name = "name")
