@@ -1,20 +1,13 @@
 package com.ak.interfaces;
 
-import java.util.List;
-
 import com.ak.entities.BaseEntity;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
-public interface GenericDao<T extends BaseEntity> {
-	
-	Class<T> getGenericClass();
-	
-	T add(T entity);
-	
-	T get(Long id);
-	
-	T update (T entity);
-	
-	void remove (T entity);
-	
-	List<T> getAll();
+import javax.transaction.Transactional;
+
+@Transactional
+@Repository
+public interface GenericDao<T extends BaseEntity> extends JpaRepository<T, Long> {
+
 }

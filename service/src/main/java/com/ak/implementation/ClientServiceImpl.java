@@ -31,6 +31,6 @@ public class ClientServiceImpl extends EntityServiceImpl<Client, ClientDto> impl
         if (StringUtils.isNotEmpty(clientDto.getAddress())) {
             client.setAddress(clientDto.getAddress());
         }
-        return clientMapper.toDto(clientDao.update(client));
+        return clientMapper.toDto(clientDao.saveAndFlush(client));
     }
 }

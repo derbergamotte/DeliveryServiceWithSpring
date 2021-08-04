@@ -25,6 +25,6 @@ public class AttributeServiceImpl extends EntityServiceImpl<Attribute, Attribute
         if (StringUtils.isNotEmpty(dto.getName())) {
             attribute.setName(dto.getName());
         }
-        return attributeMapper.toDto(attributeDao.update(attribute));
+        return attributeMapper.toDto(attributeDao.saveAndFlush(attribute));
     }
 }

@@ -34,17 +34,6 @@ public class ProductServiceImpl extends EntityServiceImpl<Product, ProductDto> i
         if (StringUtils.isNotEmpty(productDto.getInformation())) {
             product.setInformation(productDto.getInformation());
         }
-        return productMapper.toDto(productDao.update(product));
-    }
-
-    public Collection<ProductDto> getByCategoryById(Long categoryId) {
-        return productMapper.toDto(productDao.findByCategory(categoryDao.get(categoryId)));
-    }
-
-    public Collection<ProductDto> findByAttributes(Collection<Long> listAttributesId) {
-        return productMapper.toDto(productDao.findByAttributes(
-                listAttributesId.stream()
-                        .map(attributeDao::get)
-                        .collect(Collectors.toSet())));
+        return productMapper.toDto(productDao.saveAndFlush(product));
     }
 }

@@ -25,6 +25,6 @@ public class CategoryServiceImpl extends EntityServiceImpl<Category, CategoryDto
         if (StringUtils.isNotEmpty(categoryDto.getName())) {
             category.setName(categoryDto.getName());
         }
-        return categoryMapper.toDto(categoryDao.update(category));
+        return categoryMapper.toDto(categoryDao.saveAndFlush(category));
     }
 }

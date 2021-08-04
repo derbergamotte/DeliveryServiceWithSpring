@@ -9,9 +9,6 @@ import com.ak.mappers.StorageMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.*;
-import java.util.stream.Collectors;
-
 @Service
 public class StorageServiceImpl extends EntityServiceImpl<Storage, StorageDto> implements StorageService {
 
@@ -33,14 +30,6 @@ public class StorageServiceImpl extends EntityServiceImpl<Storage, StorageDto> i
         if (!(storageDto.getPrice() == null)) {
             storage.setPrice(storageDto.getPrice());
         }
-        return storageMapper.toDto(storageDao.update(storage));
-    }
-//TODO: do it
-    public Collection<StorageDto> sortProductByPriceInStores(Long productId) {
-        return null;
-//        return productService.getById(productId).getStorages()
-//                .stream()
-//                .sorted(Comparator.comparing(StorageDto::getPrice))
-//                .collect(Collectors.toList());
+        return storageMapper.toDto(storageDao.saveAndFlush(storage));
     }
 }

@@ -31,6 +31,6 @@ public class StoreServiceImpl extends EntityServiceImpl<Store, StoreDto> impleme
         if (StringUtils.isNotEmpty(storeDto.getPhone())) {
             store.setPhone(storeDto.getPhone());
         }
-       return storeMapper.toDto(storeDao.update(store));
+       return storeMapper.toDto(storeDao.saveAndFlush(store));
     }
 }

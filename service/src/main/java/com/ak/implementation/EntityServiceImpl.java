@@ -18,7 +18,7 @@ public abstract class EntityServiceImpl<E extends BaseEntity, T extends BaseDto>
     private EntityMapper<E, T> entityMapper;
 
     public T add(T dto) {
-        return entityMapper.toDto(genericDao.add(entityMapper.toEntity(dto)));
+        return entityMapper.toDto(genericDao.save(entityMapper.toEntity(dto)));
     }
 
     public T getById(Long id) {
@@ -26,14 +26,14 @@ public abstract class EntityServiceImpl<E extends BaseEntity, T extends BaseDto>
     }
 
     public Collection<T> getAll() {
-        return genericDao.getAll().stream().map(entityMapper::toDto).collect(Collectors.toSet());
+        return genericDao.findAll().stream().map(entityMapper::toDto).collect(Collectors.toSet());
     }
 
     public void remove(Long id) {
-        genericDao.remove(getEntityById(id));
+        genericDao.delete(getEntityById(id));
     }
 
     protected E getEntityById(Long id) {
-        return genericDao.get(id);
+        return genericDao.findById(id).orElse(null);
     }
 }
