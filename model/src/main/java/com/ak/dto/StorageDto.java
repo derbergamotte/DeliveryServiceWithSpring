@@ -13,5 +13,4 @@ public class StorageDto extends BaseDto {
     private ProductDto product;
     private Integer quantity;
     private Integer price;
-    private Collection<OrderDto> orders;
 }

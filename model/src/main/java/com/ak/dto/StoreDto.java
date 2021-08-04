@@ -12,5 +12,4 @@ public class StoreDto extends BaseDto {
     private String name;
     private String phone;
     private String address;
-    private Collection<StorageDto> storages;
 }

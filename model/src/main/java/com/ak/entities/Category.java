@@ -17,6 +17,5 @@ public class Category extends BaseEntity {
 
     @Column(name = "name")
     private String name;
-    @ManyToMany(mappedBy = "categories", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private Collection<Product> products;
+
 }

@@ -17,11 +17,11 @@ public class ClientServiceImpl extends EntityServiceImpl<Client, ClientDto> impl
     @Autowired
     private ClientMapper clientMapper;
 
-    public ClientDto update(ClientDto clientDto) {
+    public ClientDto update(Long id, ClientDto clientDto) {
         if (clientDto.getId() == null) {
             return clientDto;
         }
-        Client client = getEntityById(clientDto.getId());
+        Client client = getEntityById(id);
         if (StringUtils.isNotEmpty(clientDto.getName())) {
             client.setName(clientDto.getName());
         }

@@ -21,6 +21,4 @@ public class Client extends BaseEntity {
     private String phone;
     @Column(name = "address")
     private String address;
-    @OneToMany(mappedBy = "client", fetch = FetchType.LAZY)
-    private Collection<Order> orders;
 }

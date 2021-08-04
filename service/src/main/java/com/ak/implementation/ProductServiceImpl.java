@@ -23,11 +23,11 @@ public class ProductServiceImpl extends EntityServiceImpl<Product, ProductDto> i
     @Autowired
     private ProductMapper productMapper;
 
-    public ProductDto update(ProductDto productDto) {
+    public ProductDto update(Long id, ProductDto productDto) {
         if (productDto.getId() == null) {
             return productDto;
         }
-        Product product = getEntityById(productDto.getId());
+        Product product = getEntityById(id);
         if (StringUtils.isNotEmpty(productDto.getName())) {
             product.setName(productDto.getName());
         }

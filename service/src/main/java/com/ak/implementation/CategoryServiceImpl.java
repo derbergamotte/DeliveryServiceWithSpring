@@ -17,11 +17,11 @@ public class CategoryServiceImpl extends EntityServiceImpl<Category, CategoryDto
     @Autowired
     private CategoryMapper categoryMapper;
 
-    public CategoryDto update(CategoryDto categoryDto) {
+    public CategoryDto update(Long id, CategoryDto categoryDto) {
         if (categoryDto.getId() == null) {
             return categoryDto;
         }
-        Category category = getEntityById(categoryDto.getId());
+        Category category = getEntityById(id);
         if (StringUtils.isNotEmpty(categoryDto.getName())) {
             category.setName(categoryDto.getName());
         }

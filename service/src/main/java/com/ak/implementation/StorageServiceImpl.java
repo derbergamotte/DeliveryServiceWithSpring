@@ -22,8 +22,8 @@ public class StorageServiceImpl extends EntityServiceImpl<Storage, StorageDto> i
     @Autowired
     private StorageMapper storageMapper;
 
-    public StorageDto update(StorageDto storageDto) {
-        Storage storage = getEntityById(storageDto.getId());
+    public StorageDto update(Long id, StorageDto storageDto) {
+        Storage storage = getEntityById(id);
         if (storageDto.getId() == null) {
             return storageDto;
         }
@@ -35,11 +35,12 @@ public class StorageServiceImpl extends EntityServiceImpl<Storage, StorageDto> i
         }
         return storageMapper.toDto(storageDao.update(storage));
     }
-
+//TODO: do it
     public Collection<StorageDto> sortProductByPriceInStores(Long productId) {
-        return productService.getById(productId).getStorages()
-                .stream()
-                .sorted(Comparator.comparing(StorageDto::getPrice))
-                .collect(Collectors.toList());
+        return null;
+//        return productService.getById(productId).getStorages()
+//                .stream()
+//                .sorted(Comparator.comparing(StorageDto::getPrice))
+//                .collect(Collectors.toList());
     }
 }

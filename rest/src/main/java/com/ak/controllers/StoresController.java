@@ -49,12 +49,12 @@ public class StoresController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<StoreDto> update(@RequestBody StoreDto storeDto){
+    public ResponseEntity<StoreDto> update(@PathVariable Long id, @RequestBody StoreDto storeDto){
         try {
             return ResponseEntity
                     .status(HttpStatus.CREATED)
                     .header("Content-Type", "application/json")
-                    .body(storeService.update(storeDto));
+                    .body(storeService.update(id, storeDto));
         } catch (Exception e) {
             return ResponseEntity
                     .status(HttpStatus.BAD_REQUEST)

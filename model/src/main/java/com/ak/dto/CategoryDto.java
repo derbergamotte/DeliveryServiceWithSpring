@@ -10,5 +10,4 @@ import lombok.EqualsAndHashCode;
 public class CategoryDto extends BaseDto {
 
     private String name;
-    private Collection<ProductDto> products;
 }

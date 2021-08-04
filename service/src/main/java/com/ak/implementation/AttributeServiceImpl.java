@@ -17,11 +17,11 @@ public class AttributeServiceImpl extends EntityServiceImpl<Attribute, Attribute
     @Autowired
     private AttributeMapper attributeMapper;
 
-    public AttributeDto update(AttributeDto dto) {
+    public AttributeDto update(Long id, AttributeDto dto) {
         if (dto.getId() == null) {
             return dto;
         }
-        Attribute attribute = getEntityById(dto.getId());
+        Attribute attribute = getEntityById(id);
         if (StringUtils.isNotEmpty(dto.getName())) {
             attribute.setName(dto.getName());
         }

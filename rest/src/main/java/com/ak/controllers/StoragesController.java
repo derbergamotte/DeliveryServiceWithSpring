@@ -48,12 +48,12 @@ public class StoragesController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<StorageDto> update(@RequestBody StorageDto storageDto) {
+    public ResponseEntity<StorageDto> update(@PathVariable Long id, @RequestBody StorageDto storageDto) {
         try {
             return ResponseEntity
                     .status(HttpStatus.CREATED)
                     .header("Content-Type", "application/json")
-                    .body(storageService.update(storageDto));
+                    .body(storageService.update(id, storageDto));
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(storageDto);
         }

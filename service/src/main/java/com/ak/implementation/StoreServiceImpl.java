@@ -17,11 +17,11 @@ public class StoreServiceImpl extends EntityServiceImpl<Store, StoreDto> impleme
     @Autowired
     private StoreMapper storeMapper;
 
-    public StoreDto update(StoreDto storeDto) {
+    public StoreDto update(Long id, StoreDto storeDto) {
         if (storeDto.getId() == null) {
             return storeDto;
         }
-        Store store = getEntityById(storeDto.getId());
+        Store store = getEntityById(id);
         if (StringUtils.isNotEmpty(storeDto.getName())) {
             store.setName(storeDto.getName());
         }

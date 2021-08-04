@@ -12,5 +12,4 @@ public class ClientDto extends BaseDto {
     private String name;
     private String phone;
     private String address;
-    private Collection<OrderDto> orders;
 }

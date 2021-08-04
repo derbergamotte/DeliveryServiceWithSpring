@@ -46,13 +46,14 @@ public class ProductsController {
         }
     }
 
+    //TODO: pathparam?
     @PutMapping("/{id}")
-    public ResponseEntity<ProductDto> update(@RequestBody ProductDto productDto) {
+    public ResponseEntity<ProductDto> update(@PathVariable Long id, @RequestBody ProductDto productDto) {
         try {
             return ResponseEntity
                     .status(HttpStatus.CREATED)
                     .header("Content-Type", "application/json")
-                    .body(productService.update(productDto));
+                    .body(productService.update(id, productDto));
         } catch (Exception e) {
             return ResponseEntity
                     .status(HttpStatus.BAD_REQUEST)

@@ -25,6 +25,4 @@ public class Storage extends BaseEntity {
     private Integer quantity;
     @Column(name = "price")
     private Integer price;
-    @OneToMany(mappedBy = "storage", fetch = FetchType.LAZY)
-    private Collection<Order> orders;
 }

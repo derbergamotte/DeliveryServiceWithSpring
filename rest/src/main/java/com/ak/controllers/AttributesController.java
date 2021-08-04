@@ -48,12 +48,12 @@ public class AttributesController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<AttributeDto> update(@RequestBody AttributeDto attributeDto) {
+    public ResponseEntity<AttributeDto> update(@PathVariable Long id, @RequestBody AttributeDto attributeDto) {
         try {
             return ResponseEntity
                     .status(HttpStatus.CREATED)
                     .header("Content-Type", "application/json")
-                    .body(attributeService.update(attributeDto));
+                    .body(attributeService.update(id, attributeDto));
         } catch (Exception e) {
             return ResponseEntity
                     .status(HttpStatus.BAD_REQUEST)

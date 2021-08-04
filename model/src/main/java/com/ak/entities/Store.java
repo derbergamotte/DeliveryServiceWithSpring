@@ -21,6 +21,4 @@ public class Store extends BaseEntity {
     private String phone;
     @Column(name = "address")
     private String address;
-    @OneToMany(mappedBy = "store", fetch = FetchType.LAZY)
-    private Collection<Storage> storages;
 }

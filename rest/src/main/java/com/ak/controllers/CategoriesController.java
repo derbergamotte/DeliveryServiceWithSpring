@@ -48,12 +48,12 @@ public class CategoriesController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<CategoryDto> update(@RequestBody CategoryDto categoryDto) {
+    public ResponseEntity<CategoryDto> update(@PathVariable Long id, @RequestBody CategoryDto categoryDto) {
         try {
             return ResponseEntity
                     .status(HttpStatus.CREATED)
                     .header("Content-Type", "application/json")
-                    .body(categoryService.update(categoryDto));
+                    .body(categoryService.update(id, categoryDto));
         } catch (Exception e) {
             return ResponseEntity
                     .status(HttpStatus.BAD_REQUEST)

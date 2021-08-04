@@ -14,5 +14,5 @@ public interface EntityService<T extends BaseDto> {
 
     void remove(Long id);
 
-    T update(T dto);
+    T update(Long id, T dto);
 }

@@ -48,12 +48,12 @@ public class ClientsController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<ClientDto> update(@RequestBody ClientDto clientDto) {
+    public ResponseEntity<ClientDto> update(@PathVariable Long id, @RequestBody ClientDto clientDto) {
         try {
             return ResponseEntity
                     .status(HttpStatus.CREATED)
                     .header("Content-Type", "application/json")
-                    .body(clientService.update(clientDto));
+                    .body(clientService.update(id, clientDto));
         } catch (Exception e) {
             return ResponseEntity
                     .status(HttpStatus.BAD_REQUEST)

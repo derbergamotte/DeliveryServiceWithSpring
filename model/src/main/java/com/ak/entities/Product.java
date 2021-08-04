@@ -27,8 +27,6 @@ public class Product extends BaseEntity {
             joinColumns = @JoinColumn(name = "product_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "attribute_id", referencedColumnName = "id"))
     private Collection<Attribute> attributes;
-    @OneToMany(mappedBy = "product", fetch = FetchType.LAZY)
-    private Collection<Storage> storages;
     @Column(name = "information")
     private String information;
 }
