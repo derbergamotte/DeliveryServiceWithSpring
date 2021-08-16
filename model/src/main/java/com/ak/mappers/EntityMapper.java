@@ -2,7 +2,6 @@ package com.ak.mappers;
 
 import com.ak.dto.BaseDto;
 import com.ak.entities.BaseEntity;
-import org.mapstruct.Mapper;
 
 import java.util.Collection;
 

@@ -2,7 +2,7 @@ package com.ak.implementation;
 
 import com.ak.dto.ClientDto;
 import com.ak.entities.Client;
-import com.ak.interfaces.ClientDao;
+import com.ak.repository.interfaces.ClientDao;
 import com.ak.interfaces.ClientService;
 import com.ak.mappers.ClientMapper;
 import org.apache.commons.lang3.StringUtils;

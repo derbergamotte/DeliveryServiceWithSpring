@@ -3,7 +3,7 @@ package com.ak.implementation;
 import com.ak.dto.StoreDto;
 import com.ak.entities.Store;
 import com.ak.interfaces.StoreService;
-import com.ak.interfaces.StoreDao;
+import com.ak.repository.interfaces.StoreDao;
 import com.ak.mappers.StoreMapper;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;

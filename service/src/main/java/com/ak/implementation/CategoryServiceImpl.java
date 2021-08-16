@@ -3,7 +3,7 @@ package com.ak.implementation;
 import com.ak.dto.CategoryDto;
 import com.ak.entities.Category;
 import com.ak.interfaces.CategoryService;
-import com.ak.interfaces.CategoryDao;
+import com.ak.repository.interfaces.CategoryDao;
 import com.ak.mappers.CategoryMapper;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;

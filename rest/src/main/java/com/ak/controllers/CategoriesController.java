@@ -14,7 +14,7 @@ import java.util.Collection;
 public class CategoriesController {
 
     @Autowired
-    CategoryService categoryService;
+    private CategoryService categoryService;
 
     @GetMapping
     public ResponseEntity<Collection<CategoryDto>> getAll() {

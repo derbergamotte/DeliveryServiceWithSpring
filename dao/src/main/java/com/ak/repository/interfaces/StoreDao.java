@@ -1,12 +1,12 @@
-package com.ak.interfaces;
+package com.ak.repository.interfaces;
 
-import com.ak.entities.Product;
+import com.ak.entities.Store;
 import org.springframework.stereotype.Repository;
 
 import javax.transaction.Transactional;
 
 @Transactional
 @Repository
-public interface ProductDao extends GenericDao<Product> {
+public interface StoreDao extends GenericDao<Store> {
 
 }

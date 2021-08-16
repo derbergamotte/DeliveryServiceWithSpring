@@ -14,7 +14,7 @@ import java.util.Collection;
 public class ClientsController {
 
     @Autowired
-    ClientService clientService;
+    private ClientService clientService;
 
     @GetMapping
     public ResponseEntity<Collection<ClientDto>> getAll() {

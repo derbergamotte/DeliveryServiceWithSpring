@@ -1,4 +1,4 @@
-package com.ak.interfaces;
+package com.ak.repository.interfaces;
 
 import com.ak.entities.BaseEntity;
 import org.springframework.data.jpa.repository.JpaRepository;

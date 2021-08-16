@@ -14,7 +14,7 @@ import java.util.Collection;
 public class ProductsController {
 
     @Autowired
-    ProductService productService;
+    private ProductService productService;
 
     @GetMapping
     public ResponseEntity<Collection<ProductDto>> getAll() {
@@ -46,7 +46,6 @@ public class ProductsController {
         }
     }
 
-    //TODO: pathparam?
     @PutMapping("/{id}")
     public ResponseEntity<ProductDto> update(@PathVariable Long id, @RequestBody ProductDto productDto) {
         try {

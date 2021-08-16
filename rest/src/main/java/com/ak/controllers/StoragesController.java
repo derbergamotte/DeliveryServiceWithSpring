@@ -14,7 +14,7 @@ import java.util.Collection;
 public class StoragesController {
 
     @Autowired
-    StorageService storageService;
+    private StorageService storageService;
 
     @GetMapping
     public ResponseEntity<Collection<StorageDto>> getAll() {

@@ -3,7 +3,7 @@ package com.ak.implementation;
 import com.ak.dto.BaseDto;
 import com.ak.entities.BaseEntity;
 import com.ak.interfaces.EntityService;
-import com.ak.interfaces.GenericDao;
+import com.ak.repository.interfaces.GenericDao;
 import com.ak.mappers.EntityMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 

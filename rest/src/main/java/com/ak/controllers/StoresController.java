@@ -15,7 +15,7 @@ import java.util.Collection;
 public class StoresController {
 
     @Autowired
-    StoreService storeService;
+    private StoreService storeService;
 
     @GetMapping
     public ResponseEntity<Collection<StoreDto>> getAll(){

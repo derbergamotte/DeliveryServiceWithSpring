@@ -4,7 +4,7 @@ import com.ak.dto.StorageDto;
 import com.ak.entities.Storage;
 import com.ak.interfaces.ProductService;
 import com.ak.interfaces.StorageService;
-import com.ak.interfaces.StorageDao;
+import com.ak.repository.interfaces.StorageDao;
 import com.ak.mappers.StorageMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

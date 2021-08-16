@@ -3,7 +3,7 @@ package com.ak.implementation;
 import com.ak.dto.AttributeDto;
 import com.ak.entities.Attribute;
 import com.ak.interfaces.AttributeService;
-import com.ak.interfaces.AttributeDao;
+import com.ak.repository.interfaces.AttributeDao;
 import com.ak.mappers.AttributeMapper;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -2,7 +2,7 @@ package com.ak.implementation;
 
 import com.ak.dto.OrderDto;
 import com.ak.entities.Order;
-import com.ak.interfaces.OrderDao;
+import com.ak.repository.interfaces.OrderDao;
 import com.ak.interfaces.OrderService;
 import com.ak.mappers.OrderMapper;
 import org.apache.commons.lang3.NotImplementedException;

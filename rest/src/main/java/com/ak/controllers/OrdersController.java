@@ -14,7 +14,7 @@ import java.util.Collection;
 public class OrdersController {
 
     @Autowired
-    OrderService orderService;
+    private OrderService orderService;
 
     @GetMapping
     public ResponseEntity<Collection<OrderDto>> getAll() {
