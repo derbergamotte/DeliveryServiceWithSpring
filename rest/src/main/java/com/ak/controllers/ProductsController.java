@@ -61,7 +61,6 @@ public class ProductsController {
         }
     }
 
-
     @DeleteMapping("/{id}")
     public ResponseEntity<String> delete(@PathVariable Long id) {
         try {
@@ -70,5 +69,21 @@ public class ProductsController {
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("It wasn't deleted");
         }
+    }
+
+    @GetMapping("/byAttributes")
+    public ResponseEntity<Collection<ProductDto>> getByAttributes(@RequestParam Collection<Long> values) {
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .header("Content-Type", "application/json")
+                .body(productService.getByAttributes(values));
+    }
+
+    @GetMapping("/byCategories")
+    public ResponseEntity<Collection<ProductDto>> getByCategories(@RequestParam Collection<Long> values) {
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .header("Content-Type", "application/json")
+                .body(productService.getByCategories(values));
     }
 }

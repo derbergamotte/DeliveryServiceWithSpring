@@ -68,4 +68,12 @@ public class StoragesController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("It wasn't deleted");
         }
     }
+
+    @GetMapping("/sort/{id}")
+    public ResponseEntity<Collection<StorageDto>> sortByProduct(@PathVariable Long productId) {
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .header("Content-Type", "application/json")
+                .body(storageService.sortProductByPriceInStores(productId));
+    }
 }

@@ -1,9 +1,8 @@
 package com.ak.implementation;
 
+import com.ak.dto.BaseDto;
 import com.ak.dto.ProductDto;
 import com.ak.entities.Product;
-import com.ak.repository.interfaces.AttributeDao;
-import com.ak.repository.interfaces.CategoryDao;
 import com.ak.repository.interfaces.ProductDao;
 import com.ak.interfaces.ProductService;
 import com.ak.mappers.ProductMapper;
@@ -12,22 +11,21 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Collection;
+import java.util.stream.Collectors;
+
 @Service
 public class ProductServiceImpl extends EntityServiceImpl<Product, ProductDto> implements ProductService {
 
     @Autowired
     private ProductDao productDao;
     @Autowired
-    private AttributeDao attributeDao;
-    @Autowired
-    private CategoryDao categoryDao;
-    @Autowired
     private ProductMapper productMapper;
     @Autowired
     private DtoJsonFileManager dtoJsonFileManager;
 
     @Override
-    public ProductDto add(ProductDto productDto){
+    public ProductDto add(ProductDto productDto) {
         productDto = super.add(productDto);
         dtoJsonFileManager.save(productDto);
         return productDto;
@@ -47,4 +45,17 @@ public class ProductServiceImpl extends EntityServiceImpl<Product, ProductDto> i
         return productMapper.toDto(productDao.saveAndFlush(product));
     }
 
+    public Collection<ProductDto> getByAttributes(Collection<Long> attributesId) {
+        return super.getAll().stream()
+                .filter(p -> p.getAttributes().stream()
+                        .map(BaseDto::getId).collect(Collectors.toSet())
+                .containsAll(attributesId)).collect(Collectors.toSet());
+    }
+
+    public Collection<ProductDto> getByCategories(Collection<Long> categoriesId) {
+        return super.getAll().stream()
+                .filter(p -> p.getCategories().stream()
+                        .map(BaseDto::getId).collect(Collectors.toSet())
+                .containsAll(categoriesId)).collect(Collectors.toSet());
+    }
 }

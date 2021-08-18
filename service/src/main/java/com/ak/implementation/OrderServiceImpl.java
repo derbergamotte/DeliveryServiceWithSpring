@@ -12,11 +12,6 @@ import org.springframework.stereotype.Service;
 @Service
 public class OrderServiceImpl extends EntityServiceImpl<Order, OrderDto> implements OrderService {
 
-	@Autowired
-	private OrderDao orderDao;
-	@Autowired
-	private OrderMapper orderMapper;
-
 	@Override
 	public OrderDto update(Long id, OrderDto dto) {
 		throw new NotImplementedException();

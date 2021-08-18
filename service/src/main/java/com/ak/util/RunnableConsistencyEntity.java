@@ -8,8 +8,8 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 
 public class RunnableConsistencyEntity implements Runnable {
 
-    ApplicationContext context = new AnnotationConfigApplicationContext(ConfigFileManager.class);
-    DtoJsonFileManager fileManager = context.getBean(DtoJsonFileManager.class);
+    private final ApplicationContext context = new AnnotationConfigApplicationContext(ConfigFileManager.class);
+    private final DtoJsonFileManager fileManager = context.getBean(DtoJsonFileManager.class);
     private final BaseDto dto;
 
     public RunnableConsistencyEntity(BaseDto dto) {
