@@ -14,7 +14,7 @@ public class SchedulerConsistencyProduct {
     @Scheduled(cron = "* */10 * * * *")
     public void consistencyProduct(){
         productService.getAll().forEach(p -> {
-            RunnableConsistencyEntity runnable = new RunnableConsistencyEntity(p);
+            CheckProductRunnable runnable = new CheckProductRunnable(p);
             new Thread(runnable).start();
         });
     }
